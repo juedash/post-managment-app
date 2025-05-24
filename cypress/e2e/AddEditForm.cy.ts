@@ -1,9 +1,8 @@
 describe('AddEditForm', () => {
   it('check validation errors when fields are empty', () => {
-    cy.visit('/posts/edit/2')
+    cy.visit('/posts/add')
 
     cy.get('input[name="title"]').clear()
-    cy.get('select[name="userId"]').select('All users')
     cy.get('textarea[name="body"]').clear()
     cy.contains('Save').click()
 

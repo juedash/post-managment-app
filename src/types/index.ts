@@ -13,14 +13,6 @@ export interface UserItem {
   address: Address
 }
 
-export interface CommentItem {
-  postId: number
-  id: number
-  name: string
-  email: string
-  body: string
-}
-
 interface Address {
   street: string
   suite: string
@@ -30,6 +22,14 @@ interface Address {
     lat: string
     lng: string
   }
+}
+
+export interface CommentItem {
+  postId: number
+  id: number
+  name: string
+  email: string
+  body: string
 }
 
 export interface AddEdit {

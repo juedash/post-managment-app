@@ -2,7 +2,7 @@
   <section>
     <div class="container m-auto py-6">
       <button
-        class="text-green-500 hover:text-green-600 flex items-center"
+        class="text-black hover:text-gray-700 flex items-center"
         @click="$emit('onBackClick')"
       >
         <i class="pi pi-arrow-circle-left mr-2"></i> Back

@@ -21,7 +21,6 @@ import BackButton from '@/components/BackButton.vue'
 const toast = useToast()
 const router = useRouter()
 
-
 const createNewItem = (values: AddEdit) => {
   axios
     .post(`/api/posts`, values)
