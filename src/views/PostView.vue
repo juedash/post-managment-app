@@ -1,9 +1,6 @@
 <template>
   <HeroBanner :subtitle="postState.post?.title" />
-  <div
-    class="text-center text-gray-500 py-6 w-full h-64 flex items-center"
-    v-if="postState.isLoading"
-  >
+  <div class="text-center text-gray-500 py-6 w-full h-64 flex items-center" v-if="postState.isLoading">
     <PacmanLoader class="mx-auto text-gray-500" />
   </div>
   <section class="bg-gray-50 m-auto h-max" v-else>
@@ -15,10 +12,8 @@
             <h1 class="text-3xl font-bold mb-4">
               {{ postState.post?.title && firstLetterUppercase(postState.post?.title) }}
             </h1>
-            <RouterLink
-              :to="`/${postState.post?.userId}/posts`"
-              class="flex gap-2 items-center group text-sm md:text-base"
-            >
+            <RouterLink :to="`/${postState.post?.userId}/posts`"
+              class="flex gap-2 items-center group text-sm md:text-base">
               <i class="pi pi-user text-orange-700 text-xl" aria-hidden="true"></i>
               <p class="text-orange-700 group-hover:underline">
                 {{ postState.post?.userId && getUserName(postState.post?.userId) }}
@@ -28,16 +23,12 @@
               {{ postState.post?.body || '' }}
             </div>
             <div class="flex gap-2 justify-center md:justify-start">
-              <RouterLink
-                :to="`/posts/edit/${postState.post?.id}`"
-                class="inline-flex items-center gap-1 rounded-md bg-green-100 text-green-800 hover:bg-green-200 px-3 py-1 text-sm font-medium"
-              >
+              <RouterLink :to="`/posts/edit/${postState.post?.id}`"
+                class="inline-flex items-center gap-1 rounded-md bg-green-100 text-green-800 hover:bg-green-200 px-3 py-1 text-sm font-medium">
                 <i class="pi pi-pencil" aria-hidden="true"></i> Edit
               </RouterLink>
-              <button
-                @click="deletePost(postState.post?.id)"
-                class="inline-flex items-center gap-1 rounded-md bg-red-100 text-red-800 hover:bg-red-200 px-3 py-1 text-sm font-medium"
-              >
+              <button @click="deletePost(postState.post?.id)"
+                class="inline-flex items-center gap-1 rounded-md bg-red-100 text-red-800 hover:bg-red-200 px-3 py-1 text-sm font-medium">
                 <i class="pi pi-trash" aria-hidden="true"></i> Delete
               </button>
             </div>
@@ -49,8 +40,7 @@
             <div class="xl:flex justify-between items-center mb-6">
               <h3 class="text-xl font-bold">Comments</h3>
               <button
-                class="bg-black hover:bg-gray-700 text-white font-semibold py-1 px-3 rounded-md text-sm focus:outline-none"
-              >
+                class="bg-black hover:bg-gray-700 text-white font-semibold py-1 px-3 rounded-md text-sm focus:outline-none">
                 <i class="pi pi-comments"></i>
                 Add your comment
               </button>
@@ -111,10 +101,6 @@ onMounted(() => {
     .finally(() => {
       postState.isLoading = false
     })
-})
-
-axios.get('/api/users').then((response) => {
-  users.value = response.data
 })
 
 axios.get(`/api/posts/${postId}/comments`).then((response) => {
