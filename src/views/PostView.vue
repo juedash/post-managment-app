@@ -3,7 +3,7 @@
   <div class="text-center text-gray-500 py-6 w-full h-64 flex items-center" v-if="postState.isLoading">
     <PacmanLoader class="mx-auto text-gray-500" />
   </div>
-  <section class="bg-gray-50 m-auto h-max" v-else>
+  <section class="bg-gray-50 m-auto h-max" v-else-if="postState.post?.title">
     <div class="container m-auto py-10 px-6">
       <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-6">
         <main class="md:col-span-2">
@@ -84,7 +84,7 @@ const postState = reactive({
 
 const comments = ref<CommentItem[]>([])
 
-const { users, getUserName } = useUsers()
+const { getUserName } = useUsers()
 const { firstLetterUppercase } = useFormatString()
 const { deletePost } = useSinglePost()
 
@@ -96,7 +96,6 @@ onMounted(() => {
     })
     .catch((error) => {
       console.error('Error loading post:', error)
-      postState.isLoading = true
     })
     .finally(() => {
       postState.isLoading = false

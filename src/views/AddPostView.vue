@@ -28,6 +28,6 @@ const createNewItem = (values: AddEdit) => {
       toast.success('Post was saved successfully!')
       router.push({ name: 'home' })
     })
-    .catch(() => toast.error('Something went wrong. Please save the edits again!'))
+    .catch(() => toast.error('Something went wrong. Please add the post again!'))
 }
 </script>

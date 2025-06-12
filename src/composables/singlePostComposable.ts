@@ -15,7 +15,7 @@ export function useSinglePost() {
           router.push('/')
         })
         .catch(() => {
-          toast.error('Something went wrong while saving the post. Please try again!')
+          toast.error('Something went wrong while deleting the post. Please try again!')
         })
     }
   }

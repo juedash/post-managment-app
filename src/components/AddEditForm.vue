@@ -1,29 +1,17 @@
 <template>
-  <Form
-    @submit="onSubmit"
-    :validation-schema="schema"
-    class="space-y-4"
-    v-slot="{ meta }"
-    :initial-values="{ title: props.title, body: props.body, userId: props.userId }"
-  >
+  <Form @submit="onSubmit" :validation-schema="schema" class="space-y-4" v-slot="{ meta }"
+    :initial-values="{ title: props.title, body: props.body, userId: props.userId }">
     <div>
       <label class="block text-gray-700 font-bold mb-2">Title</label>
-      <Field
-        name="title"
-        type="text"
-        class="border border-gray-300 rounded w-full py-2 px-3 focus:border-green-600 focus:outline-none"
-      />
+      <Field name="title" type="text"
+        class="border border-gray-300 rounded w-full py-2 px-3 focus:border-green-600 focus:outline-none" />
       <ErrorMessage name="title" class="text-red-500 text-sm" />
     </div>
 
     <div>
       <label for="userId" class="block text-gray-700 font-bold mb-2">Author</label>
-      <Field
-        name="userId"
-        as="select"
-        id="userId"
-        class="border border-gray-300 rounded py-2 px-3 w-full focus:border-green-600 focus:outline-none focus:invalid:border-pink-500"
-      >
+      <Field name="userId" as="select" id="userId"
+        class="border border-gray-300 rounded py-2 px-3 w-full focus:border-green-600 focus:outline-none focus:invalid:border-pink-500">
         <option selected disabled :value="0">-- Select an author --</option>
         <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
       </Field>
@@ -32,29 +20,19 @@
 
     <div class="mb-4">
       <label class="block text-gray-700 font-bold mb-2">Description</label>
-      <Field
-        name="body"
-        as="textarea"
-        class="border border-gray-300 rounded w-full py-2 px-3 min-h-[200px] resize-y focus:border-green-600 text-base leading-relaxed font-sans focus:outline-none"
-      />
+      <Field name="body" as="textarea"
+        class="border border-gray-300 rounded w-full py-2 px-3 min-h-[200px] resize-y focus:border-green-600 text-base leading-relaxed font-sans focus:outline-none" />
       <ErrorMessage name="body" class="text-red-500 text-sm mt-1" />
     </div>
     <div class="flex gap-2 justify-end">
-      <button
-        type="button"
-        @click="emit('onCancelClick')"
-        class="block border text-right py-2 px-6 rounded-md hover:bg-gray-700 hover:text-white right-0 mb-6"
-      >
+      <button type="button" @click="emit('onCancelClick')"
+        class="block border text-right py-2 px-6 rounded-md hover:bg-gray-700 hover:text-white right-0 mb-6">
         Cancel
       </button>
-      <button
-        type="submit"
-        :disabled="!meta.touched"
-        :class="[
-          'block text-white text-right py-2 px-6 rounded-md  right-0 mb-6',
-          meta.touched ? ' bg-green-700 hover:bg-green-900' : 'bg-gray-300',
-        ]"
-      >
+      <button type="submit" :disabled="!meta.dirty" :class="[
+        'block text-white text-right py-2 px-6 rounded-md  right-0 mb-6',
+        meta.dirty ? ' bg-green-700 hover:bg-green-900' : 'bg-gray-300',
+      ]">
         Save
       </button>
     </div>
