@@ -1,6 +1,8 @@
 <template>
-  <HeroBanner />
-  <PostsList />
+  <article>
+    <HeroBanner />
+    <PostsList />
+  </article>
 </template>
 
 <script setup lang="ts">
