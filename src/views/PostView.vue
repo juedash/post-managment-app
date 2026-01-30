@@ -1,5 +1,5 @@
 <template>
-  <HeroBanner :subtitle="postState.post?.title" />
+  <HeroBanner :subtitle="postState.post?.title" v-if="postState.post?.title" />
   <ConfirmDialogModal ref="confirmRef" />
 
   <div class="text-center text-gray-500 py-6 w-full h-64 flex items-center" v-if="postState.isLoading">
@@ -68,7 +68,6 @@
 import { useRoute, useRouter } from 'vue-router'
 import type { PostItem, CommentItem } from '@/types'
 import { onMounted, ref, reactive } from 'vue'
-import axios from 'axios'
 import HeroBanner from '@/components/HeroBanner.vue'
 import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue'
 import { useFormatString } from '@/composables/useFormatString'
@@ -76,6 +75,7 @@ import { useSinglePost } from '@/composables/useSinglePost'
 import BackButton from '@/components/BackButton.vue'
 import ConfirmDialogModal from '@/components/ConfirmDialogModal.vue'
 import { useUsers } from '@/composables/useUsers'
+import { api } from '@/lib/api'
 
 const route = useRoute()
 const postId = route.params.id
@@ -105,20 +105,27 @@ const confirm = (opts?: { title?: string; message?: string }) => {
 const { deletePost } = useSinglePost(confirm)
 
 onMounted(() => {
-  axios
-    .get(`/api/posts/${postId}`)
+  api
+    .get(`/posts/${postId}`)
     .then((response) => {
+      if (response.status !== 200) {
+        router.replace('/not-found')
+        return
+      }
       postState.post = response.data
+      api.get(`/posts/${postId}/comments`).then((response) => {
+        comments.value = response.data
+      })
     })
     .catch((error) => {
       console.error('Error loading post:', error)
+      router.replace('/not-found')
+
     })
     .finally(() => {
       postState.isLoading = false
     })
 })
 
-axios.get(`/api/posts/${postId}/comments`).then((response) => {
-  comments.value = response.data
-})
+
 </script>
