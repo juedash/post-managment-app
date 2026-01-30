@@ -13,17 +13,17 @@
 <script setup lang="ts">
 import AddEditForm from '@/components/AddEditForm.vue'
 import type { AddEdit } from '@/types'
-import axios from 'axios'
 import { useToast } from 'vue-toastification'
 import { useRouter } from 'vue-router'
 import BackButton from '@/components/BackButton.vue'
+import { api } from '@/lib/api'
 
 const toast = useToast()
 const router = useRouter()
 
 const createNewItem = (values: AddEdit) => {
-  axios
-    .post(`/api/posts`, values)
+  api
+    .post(`/posts`, values)
     .then(() => {
       toast.success('Post was saved successfully!')
       router.push({ name: 'home' })
