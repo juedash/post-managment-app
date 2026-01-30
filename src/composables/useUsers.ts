@@ -1,12 +1,12 @@
-import axios from 'axios'
 import { onMounted, ref } from 'vue'
 import type { UserItem } from '@/types'
+import { api } from '@/lib/api'
 
 export function useUsers() {
   const users = ref<UserItem[]>([])
 
   const fetchUsers = async () => {
-    axios.get('/api/users').then((response) => (users.value = response.data))
+    api.get('/users').then((response) => (users.value = response.data))
   }
 
   onMounted(() => {

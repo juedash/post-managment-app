@@ -1,6 +1,6 @@
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
-import axios from 'axios'
+import { api } from '@/lib/api';
 
 export function useSinglePost(
   confirm: (opts?: { title?: string; message?: string }) => Promise<boolean>
@@ -16,7 +16,7 @@ export function useSinglePost(
     if (!ok) return
 
     try {
-      await axios.delete(`/api/posts/${postId}`)
+      await api.delete(`/posts/${postId}`)
       toast.success('Post was deleted successfully!')
       router.push('/')
     } catch {

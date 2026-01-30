@@ -43,7 +43,7 @@ import { Form, Field, ErrorMessage } from 'vee-validate'
 import { object, string, number } from 'yup'
 import { toTypedSchema } from '@vee-validate/yup'
 import type { AddEdit } from '@/types'
-import { useUsers } from '@/composables/usersComposable'
+import { useUsers } from '@/composables/useUsers'
 
 const { users } = useUsers()
 

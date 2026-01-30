@@ -43,8 +43,7 @@ import type { PostItem } from '@/types'
 import { ref, onMounted, computed, reactive, type PropType } from 'vue'
 import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue'
 import axios from 'axios'
-import { useUsers } from '@/composables/usersComposable'
-
+import { useUsers } from '@/composables/useUsers'
 defineProps({
   limit: {
     type: Number as PropType<number>,

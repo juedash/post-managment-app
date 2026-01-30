@@ -71,11 +71,11 @@ import { onMounted, ref, reactive } from 'vue'
 import axios from 'axios'
 import HeroBanner from '@/components/HeroBanner.vue'
 import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue'
-import { useUsers } from '@/composables/usersComposable'
 import { useFormatString } from '@/composables/useFormatString'
 import { useSinglePost } from '@/composables/useSinglePost'
 import BackButton from '@/components/BackButton.vue'
 import ConfirmDialogModal from '@/components/ConfirmDialogModal.vue'
+import { useUsers } from '@/composables/useUsers'
 
 const route = useRoute()
 const postId = route.params.id
