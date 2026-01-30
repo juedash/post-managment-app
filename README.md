@@ -1,62 +1,102 @@
-# post-management-application
+# Post Management Application
 
-CRUD functionality for posts
+A simple Post Management app built with Vue 3 and TypeScript that demonstrates full CRUD functionality for posts.
 
-## Customize configuration
+Users can browse posts, search and filter them, view single posts with comments, and create, edit, or delete posts. The project also includes basic testing and routing with a Not Found page.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+---
 
-## Project Setup
+## 🌐 Live Demo
+
+👉 [post-managment-app](https://juedash.github.io/post-managment-app/)
+
+---
+
+## ✨ Features
+
+- CRUD operations for posts  
+- Search posts by title  
+- Filter posts by user  
+- Single post view with comments  
+- Load more pagination  
+- Not Found page for invalid routes or missing posts  
+- Confirmation modal for destructive actions  
+
+---
+
+## 🛠 Tech Stack
+
+- Vue 3 (Composition API)  
+- TypeScript  
+- Vite  
+- Vue Router  
+- Tailwind CSS  
+- Cypress (Component + E2E testing)  
+- ESLint  
+
+---
+
+## 📦 Project Setup
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+---
+
+## 🚀 Development
+
+### Compile and Hot-Reload
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+---
+
+## 🏗 Production Build
 
 ```sh
 npm run build
 ```
 
-### Run Headed Component Tests with [Cypress Component Testing](https://on.cypress.io/component)
+---
+
+## ✅ Testing
+
+### Component Tests (Cypress)
 
 ```sh
-npm run test:unit:dev # or `npm run test:unit` for headless testing
+npm run test:unit:dev
+# or
+npm run test:unit
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+### E2E Tests (Cypress)
 
 ```sh
 npm run test:e2e:dev
+npm run test:e2e:chrome
 ```
 
-```sh
-npm run test:e2e:chrome #headless e2e testing for chrome
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+Recommended before deployment:
 
 ```sh
 npm run build
 npm run test:e2e
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+---
+
+## 🧹 Linting
 
 ```sh
 npm run lint
 ```
 
-### Typescript
+---
+
+## 🔍 Type Checking
 
 ```sh
 npm run type-check
