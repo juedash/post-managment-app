@@ -42,8 +42,8 @@ import PostListItem from '@/components/PostListItem.vue'
 import type { PostItem } from '@/types'
 import { ref, onMounted, computed, reactive, type PropType } from 'vue'
 import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue'
-import axios from 'axios'
 import { useUsers } from '@/composables/useUsers'
+import { api } from '@/lib/api'
 defineProps({
   limit: {
     type: Number as PropType<number>,
@@ -62,8 +62,8 @@ const loadedItems = ref<number>(15)
 const searchQuery = ref<string>('')
 
 onMounted(() => {
-  axios
-    .get('/api/posts')
+  api
+    .get('/posts')
     .then((response) => {
       postState.posts = response.data
     })
