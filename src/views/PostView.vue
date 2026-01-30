@@ -7,7 +7,7 @@
   </div>
 
   <section class="bg-gray-50 m-auto h-max" v-else-if="postState.post?.title">
-    <div class="container m-auto py-10 px-6">ConfirmDialog
+    <div class="container m-auto py-10 px-6">
       <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-6">
         <main class="md:col-span-2">
           <div class="bg-white p-6 rounded-lg shadow-md text-center md:text-left">
