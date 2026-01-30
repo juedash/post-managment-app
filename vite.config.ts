@@ -6,7 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig(({command}) => ({
-  plugins: [vue(), tailwindcss(), ...(command === 'serve' ? [vueDevTools()] : [])],
+  plugins: [vue(), tailwindcss(), ...(command === 'serve' ? [vueDevTools()] : [vueDevTools()])],
   base: '/post-managment-app/',
 
   server: {
