@@ -50,7 +50,7 @@ const cancelText = ref('Cancel')
 
 let resolveFn: ((v: boolean) => void) | null = null
 
-function show(options: Options = {}) {
+const  show = (options: Options = {})   => {
   title.value = options.title ?? 'Confirm'
   message.value = options.message ?? 'Are you sure?'
   confirmText.value = options.confirmText ?? 'Confirm'
@@ -63,7 +63,7 @@ function show(options: Options = {}) {
   })
 }
 
-function close(result: boolean) {
+const close = (result: boolean) => {
   open.value = false
   resolveFn?.(result)
   resolveFn = null
