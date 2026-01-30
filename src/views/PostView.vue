@@ -40,23 +40,7 @@
 
         <aside class="md:col-span-1">
           <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="xl:flex justify-between items-center mb-6">
-              <h3 class="text-xl font-bold">Comments</h3>
-              <button
-                class="bg-black hover:bg-gray-700 text-white font-semibold py-1 px-3 rounded-md text-sm focus:outline-none">
-                <i class="pi pi-comments"></i>
-                Add your comment
-              </button>
-            </div>
-
-            <div v-for="comment in comments" :key="comment?.id">
-              <h4 class="text-green-800 text-lg font-bold mb-2">{{ comment?.name }}</h4>
-
-              <p class="mb-4">
-                {{ comment?.body || '' }}
-              </p>
-              <p class="mb-4 text-sm text-gray-400 lowercase">{{ comment?.email }}</p>
-            </div>
+          <CommentSection :comments="comments" />
           </div>
         </aside>
       </div>
@@ -67,23 +51,23 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import type { PostItem, CommentItem } from '@/types'
-import { onMounted, ref, reactive } from 'vue'
+import { onMounted, ref, reactive, watch } from 'vue'
 import HeroBanner from '@/components/HeroBanner.vue'
 import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue'
 import { useFormatString } from '@/composables/useFormatString'
 import { useSinglePost } from '@/composables/useSinglePost'
 import BackButton from '@/components/BackButton.vue'
 import ConfirmDialogModal from '@/components/ConfirmDialogModal.vue'
-import { useUsers } from '@/composables/useUsers'
 import { api } from '@/lib/api'
+import { useUsers } from '@/composables/useUsers'
+import CommentSection from '@/components/CommentSection.vue'
 
 const route = useRoute()
-const postId = route.params.id
 const router = useRouter()
 
 const postState = reactive({
-  post: {} as PostItem,
-  isLoading: true as boolean,
+  post: null as PostItem | null,
+  isLoading: true,
 })
 
 const comments = ref<CommentItem[]>([])
@@ -104,28 +88,34 @@ const confirm = (opts?: { title?: string; message?: string }) => {
 
 const { deletePost } = useSinglePost(confirm)
 
-onMounted(() => {
-  api
-    .get(`/posts/${postId}`)
-    .then((response) => {
-      if (response.status !== 200) {
-        router.replace('/not-found')
-        return
-      }
-      postState.post = response.data
-      api.get(`/posts/${postId}/comments`).then((response) => {
-        comments.value = response.data
-      })
-    })
-    .catch((error) => {
-      console.error('Error loading post:', error)
-      router.replace('/not-found')
+const load = async () => {
+  postState.isLoading = true
+  postState.post = null
+  comments.value = []
 
-    })
-    .finally(() => {
-      postState.isLoading = false
-    })
-})
+  const postId = String(route.params.id ?? '')
 
+  try {
+    const res = await api.get(`/posts/${postId}`)
 
+    // ✅ handle "200 + {}" as not found
+    if (!res.data || Object.keys(res.data).length === 0 || !res.data.id) {
+      router.replace({ name: 'not-found' })
+      return
+    }
+
+    postState.post = res.data
+
+    const commentsRes = await api.get(`/posts/${postId}/comments`)
+    comments.value = commentsRes.data
+  } catch (error) {
+    console.error('Error loading post:', error)
+    router.replace({ name: 'not-found' })
+  } finally {
+    postState.isLoading = false
+  }
+}
+
+onMounted(load)
+watch(() => route.params.id, load)
 </script>
