@@ -24,6 +24,7 @@ import axios from 'axios'
 import AddEditForm from '@/components/AddEditForm.vue'
 import { useToast } from 'vue-toastification'
 import BackButton from '@/components/BackButton.vue'
+import { api } from '@/lib/api'
 
 const route = useRoute()
 const router = useRouter()
@@ -33,7 +34,7 @@ const postId = route.params.id
 const post = ref<PostItem>()
 
 onMounted(() => {
-  axios.get(`/api/posts/${postId}`).then((response) => {
+  api.get(`/posts/${postId}`).then((response) => {
     post.value = response.data
   })
 })
@@ -46,8 +47,8 @@ const onPostUpdate = (value: AddEdit) => {
     userId: value.userId,
   }
 
-  axios
-    .put(`/api/posts/${postId}`, updatedPost)
+  api
+    .put(`/posts/${postId}`, updatedPost)
     .then(() => {
       toast.success('Post was updated successfully!')
       setTimeout(() => router.push({ name: 'post', params: { id: postId } }), 100)
