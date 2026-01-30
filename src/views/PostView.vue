@@ -1,10 +1,13 @@
 <template>
   <HeroBanner :subtitle="postState.post?.title" />
+  <ConfirmDialogModal ref="confirmRef" />
+
   <div class="text-center text-gray-500 py-6 w-full h-64 flex items-center" v-if="postState.isLoading">
     <PacmanLoader class="mx-auto text-gray-500" />
   </div>
+
   <section class="bg-gray-50 m-auto h-max" v-else-if="postState.post?.title">
-    <div class="container m-auto py-10 px-6">
+    <div class="container m-auto py-10 px-6">ConfirmDialog
       <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-6">
         <main class="md:col-span-2">
           <div class="bg-white p-6 rounded-lg shadow-md text-center md:text-left">
@@ -69,9 +72,10 @@ import axios from 'axios'
 import HeroBanner from '@/components/HeroBanner.vue'
 import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue'
 import { useUsers } from '@/composables/usersComposable'
-import { useFormatString } from '@/composables/stringsComposable'
-import { useSinglePost } from '@/composables/singlePostComposable'
+import { useFormatString } from '@/composables/useFormatString'
+import { useSinglePost } from '@/composables/useSinglePost'
 import BackButton from '@/components/BackButton.vue'
+import ConfirmDialogModal from '@/components/ConfirmDialogModal.vue'
 
 const route = useRoute()
 const postId = route.params.id
@@ -83,10 +87,22 @@ const postState = reactive({
 })
 
 const comments = ref<CommentItem[]>([])
+const confirmRef = ref<InstanceType<typeof ConfirmDialogModal> | null>(null)
 
 const { getUserName } = useUsers()
 const { firstLetterUppercase } = useFormatString()
-const { deletePost } = useSinglePost()
+
+const confirm = (opts?: { title?: string; message?: string }) => {
+  if (!confirmRef.value) return Promise.resolve(false)
+  return confirmRef.value.show({
+    title: opts?.title,
+    message: opts?.message,
+    confirmText: 'Delete',
+    cancelText: 'Cancel',
+  })
+}
+
+const { deletePost } = useSinglePost(confirm)
 
 onMounted(() => {
   axios

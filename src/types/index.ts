@@ -37,3 +37,10 @@ export interface AddEdit {
   body?: string | null
   userId?: number | null
 }
+
+export interface ConfirmationModalOptions {
+  title?: string
+  message?: string
+  confirmText?: string
+  cancelText?: string
+}

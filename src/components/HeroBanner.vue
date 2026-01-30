@@ -19,8 +19,7 @@
 
 <script setup lang="ts">
 import bgImage from '@/assets/blog-background.jpg'
-import { useFormatString } from '@/composables/stringsComposable'
-
+import { useFormatString } from '@/composables/useFormatString'
 defineProps({
   title: {
     type: String,

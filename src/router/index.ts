@@ -3,7 +3,7 @@ import PostView from '@/views/PostView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import AddPostView from '@/views/AddPostView.vue'
 import EditPostView from '@/views/EditPostView.vue'
-import Home from '@/views/HomePage.vue'
+import Home from '@/views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

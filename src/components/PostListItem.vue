@@ -31,8 +31,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useFormatString } from '@/composables/stringsComposable'
-
+import { useFormatString } from '@/composables/useFormatString'
 const props = defineProps({
   post: {
     type: Object,
